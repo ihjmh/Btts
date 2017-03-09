@@ -7,7 +7,7 @@ useage:
   
     #default chinese
     b=Btts(lan='zh') 
-    #check what language can support,which the list may not be true,i am not test all of it
+    #check what language can support,which the list may not be true,i have not test all of it
     print(Btts.languages) 
   
     result= b.genWavfile(file_name='test.wav',text='你好，世界')
