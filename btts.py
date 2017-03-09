@@ -52,8 +52,9 @@ class Btts(object):
         self.lan = lan
         self.ie  = ie
         self.max_tex = 1024
+        self.content = ''
 
-    def genWavfile(self,file_name='default.wav',text=''):
+    def genWavfile(self,file_name='default.wav',text='',body='false'):
         if not text:
             return error_content
         param=Btts.Baidu_TTS_URL.format(self.lan,self.ie,text)
@@ -61,15 +62,16 @@ class Btts(object):
         r=requests.get(param)
         status_net=r.ok
         error_cont=r.text.find('err')
+        self.content=r.content
         # print(status_net,error_cont)
         if status_net and error_cont==-1:
             with open(file_name,'wb+') as f:
-                f.write(r.content)
+                f.write(self.content)
             return True
         else:
             return False,error_content
 
 if __name__ == '__main__':
     b=Btts(lan='zh')
-    rec = b.genWavfile(text='工')
+    rec = b.genWavfile(text='你好，世界')
     print(rec)
